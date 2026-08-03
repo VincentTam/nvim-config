@@ -1,0 +1,10 @@
+# Ignore lazy-lock.json if you don't want strict plugin locking (optional)
+# lazy-lock.json
+
+# Ignore temporary swap files and back-ups created by vim/nvim
+*.swp
+*.swo
+*~
+
+# Ignore plugin cache/state if present inside nvim folder
+.netrwhist

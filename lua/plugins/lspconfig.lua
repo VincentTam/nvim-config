@@ -17,7 +17,7 @@ return {
         }
       })
 
-			-- Keymaps to set when an LSP server attaches to a buffer
+      -- Keymaps to set when an LSP server attaches to a buffer
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)

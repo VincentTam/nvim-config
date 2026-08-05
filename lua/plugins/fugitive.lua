@@ -14,7 +14,7 @@ return {
     { "<leader>gc", [[<Cmd>Git commit<CR>]], desc = "[G]it [C]ommit" },
     { "<leader>gb", [[<Cmd>Git blame -C<CR>]], desc = "[G]it [B]lame" },
     { "<leader>gp", [[<Cmd>Git push<CR>]], desc = "[G]it [P]ush" },
-    { "<leader>gf", [[<Cmd>Git push --force<CR>]], desc = "[G]it [F]orce push" },
+    { "<leader>gF", [[<Cmd>Git push --force<CR>]], desc = "[G]it [F]orce push" },
     { "<leader>gu", [[<Cmd>Git pull<CR>]], desc = "[G]it p[U]ll" },
     {
       "<leader>gh",

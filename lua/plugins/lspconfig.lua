@@ -17,6 +17,15 @@ return {
         }
       })
 
+			-- Keymaps to set when an LSP server attaches to a buffer
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(ev)
+          local opts = { buffer = ev.buf, desc = "LSP: Rename Symbol" }
+          vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, opts)
+        end,
+      })
+
       -- Typst
       vim.lsp.config('tinymist', {
         -- Porting the "opt" from official docs here:

@@ -63,5 +63,25 @@ return {
 
     -- Toggle UI
     vim.keymap.set("n", "<Leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
+
+    -- Evaluate the word under the cursor (or selected text in Visual mode) in a float
+    vim.keymap.set({ "n", "v" }, "<Leader>de", function()
+      dapui.eval()
+    end, { desc = "Debug: Evaluate in Float" })
+
+    -- Double-tap/Focus float: Pressing this will open and jump your cursor straight into the floating window
+    vim.keymap.set("n", "<Leader>dE", function()
+      dapui.eval(nil, { enter = true })
+    end, { desc = "Debug: Evaluate and Focus Float" })
+
+    -- Terminate the current debugging session
+    vim.keymap.set("n", "<Leader>dq", function()
+      dap.terminate()
+    end, { desc = "Debug: Stop/Terminate Session" })
+
+    -- Prompt for a condition string and set a conditional breakpoint on the current line
+    vim.keymap.set("n", "<Leader>dB", function()
+      dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+    end, { desc = "Debug: Set Conditional Breakpoint" })
   end,
 }

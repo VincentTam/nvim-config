@@ -11,21 +11,33 @@ return {
     -- Initialize dap-ui
     dapui.setup()
 
-    -- 1. Define the GDB adapter
+    -- 1a. Define the GDB adapter
     dap.adapters.gdb = {
       type = "executable",
       command = "gdb",
       args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
     }
 
-    -- 2. Configure C file debugging
-    local c_cpp_config = {
+    -- 1b. Define the CodeLLDB adapter (Server-based)
+    dap.adapters.lldb = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "codelldb", -- Mason adds this binary to your PATH
+        args = { "--port", "${port}" },
+      },
+    }
+
+    -- 2a. Configure C file debugging with GDB
+    local c_cpp_config_gdb = {
       {
-        name = "Launch file",
+        name = "Launch file (GDB)",
         type = "gdb",
         request = "launch",
         program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          -- Force conversion to full absolute path (e.g., /home/user/proj/main)
+          return vim.fn.fnamemodify(path, ":p")
         end,
         cwd = '${workspaceFolder}',
         stopAtBeginningOfMainSubprogram = false,
@@ -35,8 +47,24 @@ return {
         },
       },
     }
-    dap.configurations.c = c_cpp_config
-    dap.configurations.cpp = c_cpp_config
+
+    -- 2b. Configure C file debugging with LLDB
+    local c_cpp_config_lldb = {
+      {
+        name = "Launch file (CodeLLDB)",
+        type = "lldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+      },
+    }
+
+    dap.configurations.c = c_cpp_config_lldb
+    dap.configurations.cpp = c_cpp_config_lldb
 
     -- Automatically open/close DAP UI when starting/ending a debugging session
     dap.listeners.before.attach.dapui_config = function()

@@ -23,3 +23,4 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true -- When on, splitting a window will put the new window below the current one
 vim.opt.termguicolors = true
 vim.opt.scrollback = 100000
+vim.opt.textwidth = 80

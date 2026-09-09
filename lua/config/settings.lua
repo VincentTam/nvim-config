@@ -24,3 +24,6 @@ vim.opt.splitbelow = true -- When on, splitting a window will put the new window
 vim.opt.termguicolors = true
 vim.opt.scrollback = 100000
 vim.opt.textwidth = 80
+vim.opt.ignorecase = true
+
+vim.g.termfeatures = { osc52 = false, } -- Temp workaround for neovim/neovim#
